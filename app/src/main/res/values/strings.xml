@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">convay_gol</string>
+    <string name="app_name">game_of_life</string>
+    <string name="start">Start</string>
+    <string name="normalModeButton">Normal Mode</string>
+    <string name="storyModeButton">Story Mode</string>
 </resources>
