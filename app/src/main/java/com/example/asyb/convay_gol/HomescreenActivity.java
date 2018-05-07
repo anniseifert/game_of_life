@@ -24,8 +24,8 @@ public class HomescreenActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(HomescreenActivity.this, GameModeActivity.class);
-                startActivity(startIntent);
+                Intent intent = new Intent(HomescreenActivity.this, GameModeActivity.class);
+                startActivity(intent);
             }
 
 
