@@ -1,7 +1,9 @@
 package com.example.asyb.convay_gol;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 public class GameModeActivity extends AppCompatActivity {
@@ -16,5 +18,21 @@ public class GameModeActivity extends AppCompatActivity {
 
         storyModeButton = (Button) findViewById(R.id.storyModeButton);
         normalModeButton = (Button) findViewById(R.id.normalModeButton);
+
+        normalModeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent normalModeIntent = new Intent(GameModeActivity.this, GameActivity.class);
+                startActivity(normalModeIntent);
+            }
+        });
+
+        storyModeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent storyModeIntent = new Intent(GameModeActivity.this, LevelActivity.class);
+                startActivity(storyModeIntent);
+            }
+        });
     }
 }
