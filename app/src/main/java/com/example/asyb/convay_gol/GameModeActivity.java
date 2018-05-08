@@ -15,9 +15,13 @@ public class GameModeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_mode);
+        setupButtons();
+    }
 
-        storyModeButton = (Button) findViewById(R.id.storyModeButton);
+    private void setupButtons() {
         normalModeButton = (Button) findViewById(R.id.normalModeButton);
+        storyModeButton = (Button) findViewById(R.id.storyModeButton);
+
 
         normalModeButton.setOnClickListener(new View.OnClickListener() {
             @Override
