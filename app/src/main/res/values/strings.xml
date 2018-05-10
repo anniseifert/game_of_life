@@ -3,4 +3,6 @@
     <string name="start">Start</string>
     <string name="normalModeButton">Normal</string>
     <string name="storyModeButton">Story</string>
+    <string name="txtView">Text View Text</string>
+    <string name="txtHint">Text Hint</string>
 </resources>

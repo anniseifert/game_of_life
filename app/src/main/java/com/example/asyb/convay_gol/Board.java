@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Board {
 
-    public static final Random Rand = new Random();
+    public static final Random RANDOM = new Random();
     ///static = is initialized at the beginning with the class
     ///final = cannot be rewritten
     public int width, height;
@@ -26,7 +26,7 @@ public class Board {
     private void init() {
         for(int i = 0; i < width; i++) {
             for(int j = 0; j< height; j++) {
-                board[i][j] = new Cell(i, j, false);
+                board[i][j] = new Cell(i, j, RANDOM.nextBoolean());
             }
         }
     }
@@ -41,7 +41,7 @@ public class Board {
         for(int k = i-1; k <= i+1; k++) {
             for (int l = j-1; l <= j+1; l++) {
                 //TODO ignore the borders
-                if((k != 1 || l !=j) && k >= 0 && k < width && 1 >= 0 && 1 < height) {
+                if((  k != 1 || l != j) && k >= 0 && k < width && l >= 0 && l < height) {
                     Cell cell = board[k][l];
 
                     if (cell.alive) {

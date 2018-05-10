@@ -73,6 +73,8 @@ public class BoardView extends SurfaceView implements Runnable {
             getHolder().unlockCanvasAndPost(canvas);
         }
 
+
+
     }
 
     public void start() {
@@ -103,8 +105,11 @@ public class BoardView extends SurfaceView implements Runnable {
 
         //we calculate the number of columns and rows for our board
         numberofColumns = point.x / DEFAULT_SIZE;
-        rowHeight = point.y / numberofRows;
+        numberofRows = point.y / DEFAULT_SIZE;
 
+        // we calculate the column width and row height
+        columnWidth = point.x / numberofColumns;
+        rowHeight = point.y / numberofRows;
         board = new Board(numberofColumns, numberofRows);
     }
 
