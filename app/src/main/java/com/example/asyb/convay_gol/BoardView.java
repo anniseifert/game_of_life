@@ -11,6 +11,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 /**
  * Created by anney on 06.05.2018.
@@ -27,6 +28,8 @@ public class BoardView extends SurfaceView implements Runnable {
     public static final int DEFAULT_ALIVE_COLOR = Color.WHITE;
     //Default color of a dead color
     public static final int DEFAULT_DEAD_COLOR = Color.BLACK;
+    //default color of text
+    public static final int DEFAULT_TEXT_COLOR = Color.WHITE;
 
     //Thread which will be responsible to manage the evolution of the board
     private Thread thread;
@@ -37,6 +40,7 @@ public class BoardView extends SurfaceView implements Runnable {
     private int numberofColumns = 1;
     private int numberofRows = 1;
     private Board board;
+    private int generationCount = 0;
 
     //a Rectangle instance and a Paint instance used to draw the cells
     private Rect rect = new Rect();
@@ -57,43 +61,38 @@ public class BoardView extends SurfaceView implements Runnable {
     public void run() {
         //while the board is evolving
         while (isRunning) {
-            if (!getHolder().getSurface().isValid())
-                continue;
+            if (getHolder().getSurface().isValid()) {
+                //Pause of 300ms to better visualize the evolution TODO make time variable for fast forward
+                try {
+                  Thread.sleep(300);
+                } catch (InterruptedException e) {
 
-            //Pause of 300ms to better visualize the evolution
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
+                }
 
+                Canvas canvas = getHolder().lockCanvas();
+                board.nextGeneration();
+                generationCount++;
+                drawCells(canvas);
+                drawGenerationCount(canvas);
+                getHolder().unlockCanvasAndPost(canvas);
             }
-
-            Canvas canvas = getHolder().lockCanvas();
-            board.nextGeneration();
-            drawCells(canvas);
-            getHolder().unlockCanvasAndPost(canvas);
         }
-
-
-
     }
 
-    public void start() {
+    public void resume() {
         //board is evolving
         isRunning = true;
         thread = new Thread(this);
-        //we start the Tread for the boards evolutions
+        //we start the Thread for the boards evolutions
         thread.start();
     }
 
-    public void stop() {
+    public void pause() {
         isRunning = false;
-
-        while (true) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-            }
-            break;
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            //TODO
         }
     }
 
@@ -129,6 +128,14 @@ public class BoardView extends SurfaceView implements Runnable {
         }
     }
 
+    // method to draw the number of the current generation
+    private void drawGenerationCount(Canvas canvas) {
+        paint.setColor(DEFAULT_TEXT_COLOR);
+        //TODO only do once
+        paint.setTextSize(rowHeight * 1.5f);
+        canvas.drawText("Generation" + String.valueOf(generationCount), columnWidth, paint.getTextSize() + columnWidth, paint);
+    }
+
     //We let the user to interact with the cells
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -146,4 +153,11 @@ public class BoardView extends SurfaceView implements Runnable {
         }
         return super.onTouchEvent(event);
     }
+
+    /* TODO maybe use this method https://google-developer-training.gitbooks.io/android-developer-advanced-course-practicals/unit-5-advanced-graphics-and-views/lesson-11-canvas/11-2-p-create-a-surfaceview/11-2-p-create-a-surfaceview.html
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+    */
 }

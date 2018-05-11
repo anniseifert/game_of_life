@@ -1,5 +1,7 @@
 package com.example.asyb.convay_gol;
 
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
